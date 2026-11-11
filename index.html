@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f1e9">
+<title>My 11:11 — For Momo, with love</title>
+<style>
+:root{
+  --paper:#fbf6ef; --ink:#342a2a; --rose:#b77878; --rose-dark:#8f555b;
+  --blush:#f0d9d5; --gold:#c7a879; --muted:#82736e; --white:#fffdfa;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:
+    radial-gradient(circle at 15% 10%,rgba(220,174,166,.22),transparent 28rem),
+    radial-gradient(circle at 85% 32%,rgba(204,177,139,.18),transparent 25rem),
+    var(--paper);
+  font-family:Georgia,"Times New Roman",serif; overflow-x:hidden;
+}
+body:before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.17; z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+}
+main{position:relative;z-index:1}
+.hero{
+  min-height:100svh; display:grid; place-items:center; padding:70px 22px 54px;
+  text-align:center; position:relative;
+}
+.hero-inner{max-width:850px}
+.eyebrow{letter-spacing:.28em;text-transform:uppercase;font:600 10px/1.5 Arial,sans-serif;color:var(--rose-dark)}
+h1{font-size:clamp(3.5rem,10vw,7.8rem);font-weight:400;letter-spacing:-.065em;line-height:.95;margin:24px 0 14px}
+h1 span{color:var(--rose)}
+.subtitle{font-style:italic;font-size:clamp(1rem,2.5vw,1.35rem);color:var(--muted)}
+.date-pill{display:inline-flex;gap:10px;align-items:center;margin-top:28px;padding:10px 17px;border:1px solid #dfc9bd;border-radius:99px;color:var(--rose-dark);font:11px Arial,sans-serif;letter-spacing:.12em}
+.scroll-cue{margin-top:58px;color:#9c8981;font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+.scroll-cue b{display:block;font-size:19px;font-weight:400;margin-top:9px;animation:bob 1.8s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+.floating-heart{position:absolute;color:#c58a87;opacity:.45;animation:float 7s ease-in-out infinite}
+.f1{left:12%;top:23%;font-size:25px}.f2{right:13%;top:32%;font-size:18px;animation-delay:1.5s}.f3{left:20%;bottom:17%;font-size:14px;animation-delay:3s}
+@keyframes float{50%{transform:translateY(-17px) rotate(10deg)}}
+.letter-section{padding:30px 20px 105px;max-width:920px;margin:auto;text-align:center}
+.section-kicker{font:10px Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--rose-dark)}
+.section-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:400;margin:13px 0 9px}
+.section-note{color:var(--muted);font-style:italic;margin:0 0 42px}
+.envelope-wrap{perspective:1200px;display:flex;justify-content:center;margin:0 auto 30px}
+.envelope-button{border:0;background:transparent;cursor:pointer;padding:15px 20px 20px;display:block;color:inherit}
+.envelope{position:relative;width:min( min(76vw,390px),390px);height:245px;filter:drop-shadow(0 22px 22px rgba(89,58,51,.15));transition:transform .5s}
+.envelope-button:hover .envelope{transform:translateY(-8px) rotate(-1deg)}
+.env-back{position:absolute;inset:0;background:#d9b6aa;border-radius:8px}
+.env-front{position:absolute;inset:0;background:#ead2c6;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:8px}
+.env-flap{position:absolute;inset:0;background:#f1dfd4;clip-path:polygon(0 0,100% 0,50% 62%);transform-origin:top;transition:transform .85s cubic-bezier(.2,.7,.2,1);z-index:4;border-radius:8px}
+.env-letter{position:absolute;left:8%;width:84%;height:84%;bottom:5%;background:#fffaf3;border:1px solid #e7d8cb;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:transform .9s cubic-bezier(.2,.7,.2,1);padding:12px}
+.env-letter small{font:9px Arial,sans-serif;letter-spacing:.22em;color:var(--rose-dark)}
+.env-letter strong{font-size:25px;font-weight:400;margin:10px 0;color:#59413f}
+.env-letter span{font-style:italic;color:var(--muted);font-size:13px}
+.seal{position:absolute;z-index:5;left:50%;top:52%;transform:translate(-50%,-50%);width:49px;height:49px;border-radius:50%;background:var(--rose-dark);color:#fff2e8;display:grid;place-items:center;font-size:23px;box-shadow:0 3px 8px #8c56554d;transition:opacity .3s}
+.envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
+.envelope.open .env-letter{transform:translateY(-112px);z-index:3}
+.envelope.open .seal{opacity:0}
+.tap-hint{font:10px Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:var(--rose-dark);margin-top:8px}
+.opened-note{max-height:0;overflow:hidden;opacity:0;transition:max-height 1s ease,opacity .8s ease}
+.opened-note.show{max-height:250px;opacity:1}
+.opened-note p{font-style:italic;color:var(--muted);line-height:1.7}
+.open-pdf{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:99px;background:var(--rose-dark);color:#fff9f2;text-decoration:none;font:11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 8px 20px #8f555b2b;transition:transform .2s,background .2s}
+.open-pdf:hover{transform:translateY(-3px);background:#75444a}
+.open-pdf.disabled{opacity:.5;pointer-events:none}
+.message{max-width:720px;margin:80px auto 0;text-align:left;background:rgba(255,253,250,.72);border:1px solid #eadbd1;padding:clamp(25px,5vw,58px);box-shadow:0 20px 60px rgba(95,64,54,.06);position:relative}
+.message:before,.message:after{content:"✦";position:absolute;color:#c7a879;font-size:15px}
+.message:before{top:17px;left:20px}.message:after{bottom:17px;right:20px}
+.message h2{font-weight:400;font-size:25px;margin:0 0 25px}
+.message p{font-size:16px;line-height:1.95;color:#554847;margin:0 0 18px}
+.message .marathi{font-style:italic;color:var(--rose-dark);font-size:17px}
+.message .emphasis{font-weight:bold}
+.signature{text-align:right;font-style:italic;color:var(--rose-dark)!important;margin-top:26px!important}
+footer{text-align:center;padding:0 20px 50px;color:#9a8980;font:10px Arial,sans-serif;letter-spacing:.15em}
+.heart-pop{position:fixed;pointer-events:none;z-index:20;animation:pop 1.5s ease-out forwards;font-size:20px}
+@keyframes pop{to{transform:translate(var(--x),-130px) rotate(25deg) scale(.2);opacity:0}}
+@media(max-width:560px){.hero{min-height:88svh}.envelope{height:205px}.message p{font-size:15px}.letter-section{padding-bottom:75px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <span class="floating-heart f1">♡</span><span class="floating-heart f2">✧</span><span class="floating-heart f3">♡</span>
+    <div class="hero-inner">
+      <div class="eyebrow">a little wish, written for you</div>
+      <h1>My <span>11:11</span></h1>
+      <div class="subtitle">For my favourite person, my Momo. ♡</div>
+      <div class="date-pill">11 · 11 <span>—</span> ALWAYS A WISH, ALWAYS YOU</div>
+      <div class="scroll-cue">A little something is waiting below <b>↓</b></div>
+    </div>
+  </section>
+
+  <section class="letter-section" id="letter">
+    <div class="section-kicker">sealed with all my love</div>
+    <h2 class="section-title">A letter for you</h2>
+    <p class="section-note">Some things are too special to send in an ordinary message.</p>
+
+    <div class="envelope-wrap">
+      <button class="envelope-button" id="envelopeButton" aria-label="Open the digital envelope" aria-expanded="false">
+        <div class="envelope" id="envelope">
+          <div class="env-back"></div>
+          <div class="env-letter"><small>TO MY MOMO</small><strong>11:11</strong><span>one wish, a thousand feelings</span></div>
+          <div class="env-front"></div>
+          <div class="env-flap"></div>
+          <div class="seal">♡</div>
+        </div>
+        <div class="tap-hint" id="tapHint">Tap the envelope to open</div>
+      </button>
+    </div>
+
+    <div class="opened-note" id="openedNote">
+      <p>The envelope is open. Your little keepsake is ready whenever you are. ♡</p>
+      <a class="open-pdf" href="Momo_Anshu_Ahmedabad_Love_Trip_2026.pdf" target="_blank" rel="noopener">
+        <span>♡</span> Open our little trip book <span>↗</span>
+      </a>
+    </div>
+
+    <article class="message">
+      <h2>My Momo, ❤️</h2>
+      <p>They say 11:11 is the time to make a wish, a moment when you close your eyes and ask the universe for something your heart desires.</p>
+      <p>But you know what? I don't think I need to make a wish anymore, because somehow, my wish has already found its way into my life. It's you.</p>
+      <p>You're not just someone I wish for at 11:11; you're the reason I smile when I see those four numbers. And if I could make one wish every single day, it would be to keep finding you in every tomorrow, in every lifetime, and in every version of my story.</p>
+      <p class="marathi"><strong>Tu fakt majha prem nahis, tu majhya jagnyacha sarvat sundar kaaran aahes.</strong> ❤️</p>
+      <p>You're my 11:11, my favourite coincidence, my answered prayer, and the one wish I never want to stop making.</p>
+      <p>Happy 11/11, my girl. I hope the universe keeps us choosing each other, over and over again.</p>
+      <p class="emphasis">P.S. I don't need 11:11 to wish for you. But I'll never stop being grateful that I have you. ♾️❤️</p>
+      <p class="signature">Always yours, Anshu ♡</p>
+    </article>
+  </section>
+  <footer>MADE WITH LOVE, FOR MY 11:11 &nbsp; ♡</footer>
+</main>
+<script>
+const button=document.getElementById('envelopeButton');
+const envelope=document.getElementById('envelope');
+const opened=document.getElementById('openedNote');
+const hint=document.getElementById('tapHint');
+let isOpen=false;
+button.addEventListener('click',()=>{
+  isOpen=!isOpen;
+  envelope.classList.toggle('open',isOpen);
+  opened.classList.toggle('show',isOpen);
+  button.setAttribute('aria-expanded',String(isOpen));
+  hint.textContent=isOpen?'Your letter is waiting ♡':'Tap the envelope to open';
+  if(isOpen){
+    for(let i=0;i<9;i++){
+      const h=document.createElement('span');h.className='heart-pop';h.textContent=['♡','♥','✧'][i%3];
+      h.style.left=(window.innerWidth/2+(Math.random()*100-50))+'px';
+      h.style.top=(window.innerHeight*.55)+'px';
+      h.style.setProperty('--x',(Math.random()*180-90)+'px');
+      document.body.appendChild(h);setTimeout(()=>h.remove(),1600);
+    }
+    setTimeout(()=>opened.scrollIntoView({behavior:'smooth',block:'center'}),250);
+  }
+});
+</script>
+</body>
+</html>
